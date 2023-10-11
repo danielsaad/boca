@@ -102,9 +102,9 @@ if(!file_exists($webcastdir . $ds . 'contest') || filemtime($webcastdir . $ds . 
 $contestfile = $ct['contestname'] . "\n";
 
 $contestfile = $contestfile .
-	$ct['contestduration']/60 . '' .
-	$ct['contestlastmileanswer']/60 . '' .
-	$ct['contestlastmilescore']/60 . '' .
+	$ct['contestduration']/60 . '␜' .
+	$ct['contestlastmileanswer']/60 . '␜' .
+	$ct['contestlastmilescore']/60 . '␜' .
 	$ct['contestpenalty']/60 . "\n";
 
 $c = DBConnect();
@@ -119,7 +119,7 @@ $r = DBExec($c,$sql);
 $numTeams = DBnlines($r);
 
 $contestfile = $contestfile .
-	$numTeams . '' .
+	$numTeams . '␜' .
 	$numProblems . "\n";
 $teamIDs = array();
 for ($i = 0; $i < $numTeams; $i++) {
@@ -134,8 +134,8 @@ for ($i = 0; $i < $numTeams; $i++) {
 	//print_r( array_keys($a));
 
 	$contestfile = $contestfile .
-		$teamID . '' .
-		$teamUni . '' .
+		$teamID . '␜' .
+		$teamUni . '␜' .
 		$teamName . "\n";
 }
 
@@ -153,15 +153,15 @@ for ($i = 0; $i < $numTeams; $i++) {
 		$teamUni = $teamName;
 
 	$contestfile = $contestfile .
-		$teamID . '' .
-		$teamUni . '' .
+		$teamID . '␜' .
+		$teamUni . '␜' .
 		$teamName . "\n";
 }
 */
 $contestfile = $contestfile .
-	'1' . '' . '1' . "\n";
+	'1' . '␜' . '1' . "\n";
 $contestfile = $contestfile .
-	$numProblems . '' . 'Y' . "\n";
+	$numProblems . '␜' . 'Y' . "\n";
 }
 
 function LocalGetRuns($contest,$site,$st,$extraquery,$order='run') {
@@ -254,11 +254,10 @@ for ($i = 0; $i < $numRuns; $i++) {
 
 //if($runTime < $freezeTime) {
         {
-          $runfile .= $runID . '^\' .
-            $runTime . '^\' .
-            $runTeam . '^\' .
-            $runProblem . '^\';
-
+	$runfile .= $runID . '' .
+	    $runTime . '' .
+	    $runTeam . '' .
+	    $runProblem . '';
           //if ($runTime >= $freezeTime) {
           //  $runfile .= '?' . "\n";
           //} else if ($run[$i]['yes'] == 't') {
